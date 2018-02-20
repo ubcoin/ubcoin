@@ -67,6 +67,12 @@ Maximum tokens can mint - 20 000 000 VST
 * _Reserved tokens wallet_      : 
 * _Founders tokens lock period_ : 90 days
 
+### Features
+whitelist on presale
+time-deps bonus system
+1000$ ~ per 1 ETH
+base price 5 cent
+
 ### Links
 1. _Token_ - 
 2. _Presale_ - 
