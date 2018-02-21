@@ -46,10 +46,6 @@ EXODUS not support ERC20, but have way to export key into MyEtherWallet - http:/
 
 Investor must not use other wallets, coinmarkets or stocks. Can lose money.
 
-## Calculations inital data
-* 1 ETH ~ 800$
-* 1 Token = 0.05$  
-
 ## Tokens distribution
 
 * _Bounty tokens percent_       : 7%
