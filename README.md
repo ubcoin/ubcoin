@@ -48,9 +48,9 @@ Investor must not use other wallets, coinmarkets or stocks. Can lose money.
 
 ## Tokens distribution
 
-* _Bounty tokens percent_       : 7%
+* _Bounty tokens percent_       : 4%
 * _Team tokens percent_         : 12%
-* _Reserved tokens_             : 31%
+* _Reserved tokens_             : 34%
 * _For sale tokens percent_     : 50%
 
 ## Main network configuration

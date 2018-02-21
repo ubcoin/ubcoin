@@ -97,8 +97,8 @@ contract TestConfigurator is Ownable {
       ico.setMinInvestedLimit(100000000000000000);
       ico.setHardcap(47500000000000000000000);
       ico.setTeamTokensWallet(0x2AB0d2630eb67033E7D35eC1C43303a3F7720dA5);
-      ico.setTeamTokensPercent(10);
-      ico.setBountyTokensPercent(5);
+      ico.setTeamTokensPercent(12);
+      ico.setBountyTokensPercent(4);
       ico.setToken(token);
 
       ico.setBountyTokensWallet(bountyWallet);
