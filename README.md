@@ -1,10 +1,10 @@
 ![UBCoin](logo.png "UBCoin")
 
-# Vestarin smart contract
+# UBCoin smart contract
 
 * _Standart_        : ERC20
 * _Name_            : UBCoin
-* _Ticket_          : VST
+* _Ticket_          : UBC
 * _Decimals_        : 18
 * _Emission_        : Mintable
 * _Crowdsales_      : 2
@@ -13,15 +13,16 @@
 
 ## Smart-contracts description
 
-Contract mint bounty and founders tokens after main sale stage finished. 
-Crowdsale contracts have special function to retrieve transferred in errors tokens.
-Also crowdsale contracts have special function to direct mint tokens in wei value (featue implemneted to support external pay gateway).
+The tokens for the bounty and the team are minted after the ICO  is finished.  
+There is a special function to return 3rd party tokens that were sent by mistake (function retrieveTokens()).  
+Each stage has a direct minting function in wei. This is made to support the external payment gateways.
 
 ### Contracts contains
-1. _UBCoinToken_ - Token contract
-2. _Presale_ - Presale contract
+1. _UBCoin_ - Token contract
+2. _PreICO_ - PreICO contract
 3. _Mainsale_ - ICO contract
 4. _Configurator_ - contract with main configuration for production
+4. _TeamWallet_ - wallet for freeze team tokens
 
 ### How to manage contract
 To start working with contract you should follow next steps:
@@ -30,7 +31,7 @@ To start working with contract you should follow next steps:
 3. Call 'deploy' function on addres from (3). Gas 4000000 (actually 3979551). 
 
 Contract manager must call finishMinting after each crowdsale milestone!
-To support external mint service manager should specify address by calling _setDirectMintAgent_. After that specified address can direct mint UBC tokens by calling _directMint_.
+To support external mint service manager should specify address by calling _setDirectMintAgent_. After that specified address can direct mint RIC tokens by calling _mintTokensByETHExternal_ and _mintTokensExternal_.
 
 ### How to invest
 To purchase tokens investor should send ETH (more than minimum 0.1 ETH) to corresponding crowdsale contract.
@@ -45,61 +46,52 @@ EXODUS not support ERC20, but have way to export key into MyEtherWallet - http:/
 
 Investor must not use other wallets, coinmarkets or stocks. Can lose money.
 
-## Token counts
+## Calculations inital data
+* 1 ETH ~ 800$
+* 1 Token = 0.05$  
 
-Maximum tokens can mint - 20 000 000 VST 
-* on all crowdsales : 82% or 16 500 000 VST 
-* on presale : 7% or 1 500 000 VST 
-* on mainsale : 75% or 15 000 000 VST
-* to founders : 13% or 2 500 000 VST
-* to bounty : 5% or 1 000 000 VST
+## Tokens distribution
+
+* _Bounty tokens percent_       : 7%
+* _Team tokens percent_         : 12%
+* _Reserved tokens_             : 31%
+* _For sale tokens percent_     : 50%
 
 ## Main network configuration
 
 * _Minimal insvested limit_     : 0.1 ETH
-* _Base price_                  : 18 800 UBC per ETH
-* _Bounty tokens percent_       : 7% 
-* _Founders tokens percent_     : 12% 
-* _Reserved tokens_             : 31% 
-* _For sale tokens percent_     : 50%
 * _Founders tokens wallet_      : 
 * _Bounty tokens wallet_        : 
-* _Reserved tokens wallet_      : 
-* _Founders tokens lock period_ : 90 days
-
-### Features
-whitelist on presale
-time-deps bonus system
-1000$ ~ per 1 ETH
-base price 5 cent
+* _Contracts owner_             :
+* _Reserved tokens wallet_      :
+* _Team tokens lock period_     : 180 days lock, after every 90 days vesting 25%
 
 ### Links
-1. _Token_ - 
-2. _Presale_ - 
-3. _Mainsale_ - 
+1. _Token_ -
+2. _PreICO_ -
+3. _ICO_ -
+3. _TeamWallet_ -
 
 ### Crowdsale stages
 
-#### Presale
-* _Hardcap_                    : 8500 ETH
-* _Period_                     : 20 days
-* _Start_                      : 
-* _Wallet_                     :
-* _Contract owner_             : 
+#### PreICO
+* _Base price_                  : 1 ETH = 33 334 Tokens
+* _Hardcap_                     : 8500 ETH
+* _Period_                      : 15 days
+* _Start_                       : 
+* _Wallet_                      : 
+
+##### Features
+Whitelist
 
 #### ICO
-* _Hardcap_                    : 95 800 ETH
-* _Period_                     : 30 days
-* _Start_                      : 
-* _Wallet_                     : 0x95EA6A4ec9F80436854702e5F05d238f27166A03
-* _Contract owner_             : 0x95EA6A4ec9F80436854702e5F05d238f27166A03
-
-_Milestones_
-1. hardcap  5000 ETH, price 200 per ETH
-2. hardcap  5000 ETH, price 180 per ETH
-3. hardcap 10000 ETH, price 170 per ETH
-4. hardcap 20000 ETH, price 160 per ETH
-5. hardcap 20000 ETH, price 150 per ETH
-6. hardcap 40000 ETH, price 130 per ETH
-
+* _Hardcap_                     : 96 000 ETH
+* _Start_                       : 
+* _Wallet_                      : 
+* _Techincally base price_      : 1 ETH = 14 286 Tokens
+ 
+##### Milestones
+1. 20 days, 1 ETH = 20 000 Tokens (Technically +40%)
+2. 20 days, 1 ETH = 16 667 Tokens (Technically +20%)
+3. 20 days, 1 ETH = 14 286 Tokens 
 

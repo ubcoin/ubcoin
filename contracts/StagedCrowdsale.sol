@@ -1,106 +1,91 @@
 pragma solidity ^0.4.18;
 
-import 'zeppelin-solidity/contracts/lifecycle/Pausable.sol';
-import 'zeppelin-solidity/contracts/math/SafeMath.sol';
+import './math/SafeMath.sol';
+import './ownership/Ownable.sol';
 
-contract StagedCrowdsale is Pausable {
+contract StagedCrowdsale is Ownable {
 
   using SafeMath for uint;
 
-  struct Stage {
-    uint hardcap;
-    uint price;
-    uint invested;
-    uint closed;
+  struct Milestone {
+    uint period;
+    uint bonus;
   }
 
-  uint public start;
+  uint public totalPeriod;
 
-  uint public period;
+  Milestone[] public milestones;
 
-  uint public totalHardcap;
- 
-  uint public totalInvested;
-
-  Stage[] public stages;
-
-  function stagesCount() public constant returns(uint) {
-    return stages.length;
+  function milestonesCount() public view returns(uint) {
+    return milestones.length;
   }
 
-  function setStart(uint newStart) public onlyOwner {
-    start = newStart;
+  function addMilestone(uint period, uint bonus) public onlyOwner {
+    require(period > 0);
+    milestones.push(Milestone(period, bonus));
+    totalPeriod = totalPeriod.add(period);
   }
 
-  function setPeriod(uint newPeriod) public onlyOwner {
-    period = newPeriod;
-  }
+  function removeMilestone(uint8 number) public onlyOwner {
+    require(number < milestones.length);
+    Milestone storage milestone = milestones[number];
+    totalPeriod = totalPeriod.sub(milestone.period);
 
-  function addStage(uint hardcap, uint price) public onlyOwner {
-    require(hardcap > 0 && price > 0);
-    Stage memory stage = Stage(hardcap.mul(1 ether), price, 0, 0);
-    stages.push(stage);
-    totalHardcap = totalHardcap.add(stage.hardcap);
-  }
+    delete milestones[number];
 
-  function removeStage(uint8 number) public onlyOwner {
-    require(number >=0 && number < stages.length);
-    Stage storage stage = stages[number];
-    totalHardcap = totalHardcap.sub(stage.hardcap);    
-    delete stages[number];
-    for (uint i = number; i < stages.length - 1; i++) {
-      stages[i] = stages[i+1];
+    for (uint i = number; i < milestones.length - 1; i++) {
+      milestones[i] = milestones[i+1];
     }
-    stages.length--;
+
+    milestones.length--;
   }
 
-  function changeStage(uint8 number, uint hardcap, uint price) public onlyOwner {
-    require(number >= 0 &&number < stages.length);
-    Stage storage stage = stages[number];
-    totalHardcap = totalHardcap.sub(stage.hardcap);    
-    stage.hardcap = hardcap.mul(1 ether);
-    stage.price = price;
-    totalHardcap = totalHardcap.add(stage.hardcap);    
+  function changeMilestone(uint8 number, uint period, uint bonus) public onlyOwner {
+    require(number < milestones.length);
+    Milestone storage milestone = milestones[number];
+
+    totalPeriod = totalPeriod.sub(milestone.period);
+
+    milestone.period = period;
+    milestone.bonus = bonus;
+
+    totalPeriod = totalPeriod.add(period);
   }
 
-  function insertStage(uint8 numberAfter, uint hardcap, uint price) public onlyOwner {
-    require(numberAfter < stages.length);
-    Stage memory stage = Stage(hardcap.mul(1 ether), price, 0, 0);
-    totalHardcap = totalHardcap.add(stage.hardcap);
-    stages.length++;
-    for (uint i = stages.length - 2; i > numberAfter; i--) {
-      stages[i + 1] = stages[i];
+  function insertMilestone(uint8 numberAfter, uint period, uint bonus) public onlyOwner {
+    require(numberAfter < milestones.length);
+
+    totalPeriod = totalPeriod.add(period);
+
+    milestones.length++;
+
+    for (uint i = milestones.length - 2; i > numberAfter; i--) {
+      milestones[i + 1] = milestones[i];
     }
-    stages[numberAfter + 1] = stage;
+
+    milestones[numberAfter + 1] = Milestone(period, bonus);
   }
 
-  function clearStages() public onlyOwner {
-    for (uint i = 0; i < stages.length; i++) {
-      delete stages[i];
+  function clearMilestones() public onlyOwner {
+    require(milestones.length > 0);
+    for (uint i = 0; i < milestones.length; i++) {
+      delete milestones[i];
     }
-    stages.length -= stages.length;
-    totalHardcap = 0;
+    milestones.length -= milestones.length;
+    totalPeriod = 0;
   }
 
-  function lastSaleDate() public constant returns(uint) {
-    return start + period * 1 days;
+  function lastSaleDate(uint start) public view returns(uint) {
+    return start + totalPeriod * 1 days;
   }
 
-  modifier saleIsOn() {
-    require(stages.length > 0 && now >= start && now < lastSaleDate());
-    _;
-  }
-  
-  modifier isUnderHardcap() {
-    require(totalInvested <= totalHardcap);
-    _;
-  }
-
-  function currentStage() public saleIsOn isUnderHardcap constant returns(uint) {
-    for(uint i=0; i < stages.length; i++) {
-      if(stages[i].closed == 0) {
+  function currentMilestone(uint start) public view returns(uint) {
+    uint previousDate = start;
+    for(uint i=0; i < milestones.length; i++) {
+      if(now >= previousDate && now < previousDate + milestones[i].period * 1 days) {
         return i;
       }
+      previousDate = previousDate.add(milestones[i].period * 1 days);
     }
     revert();
   }

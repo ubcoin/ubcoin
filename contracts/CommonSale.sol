@@ -1,99 +1,100 @@
 pragma solidity ^0.4.18;
 
-import './StagedCrowdsale.sol';
-import './UBCoinToken.sol';
+import './math/SafeMath.sol';
+import './PercentRateProvider.sol';
+import './MintableToken.sol';
+import './WalletProvider.sol';
+import './InvestedProvider.sol';
+import './RetrieveTokensFeature.sol';
 
-contract CommonSale is StagedCrowdsale {
+contract CommonSale is InvestedProvider, WalletProvider, PercentRateProvider, RetrieveTokensFeature {
 
-  address public masterWallet;
+  using SafeMath for uint;
 
-  address public slaveWallet;
-  
   address public directMintAgent;
 
-  uint public slaveWalletPercent = 30;
+  uint public price;
 
-  uint public percentRate = 100;
+  uint public start;
 
-  uint public minPrice;
+  uint public minInvestedLimit;
 
-  uint public totalTokensMinted;
-  
-  bool public slaveWalletInitialized;
-  
-  bool public slaveWalletPercentInitialized;
+  MintableToken public token;
 
-  UBCoinToken public token;
-  
+  uint public hardcap;
+
+  modifier isUnderHardcap() {
+    require(invested < hardcap);
+    _;
+  }
+
+  function setHardcap(uint newHardcap) public onlyOwner {
+    hardcap = newHardcap;
+  }
+
   modifier onlyDirectMintAgentOrOwner() {
     require(directMintAgent == msg.sender || owner == msg.sender);
     _;
   }
-  
+
+  modifier minInvestLimited(uint value) {
+    require(value >= minInvestedLimit);
+    _;
+  }
+
+  function setStart(uint newStart) public onlyOwner {
+    start = newStart;
+  }
+
+  function setMinInvestedLimit(uint newMinInvestedLimit) public onlyOwner {
+    minInvestedLimit = newMinInvestedLimit;
+  }
+
   function setDirectMintAgent(address newDirectMintAgent) public onlyOwner {
     directMintAgent = newDirectMintAgent;
   }
-  
-  function setMinPrice(uint newMinPrice) public onlyOwner {
-    minPrice = newMinPrice;
+
+  function setPrice(uint newPrice) public onlyOwner {
+    price = newPrice;
   }
 
-  function setSlaveWalletPercent(uint newSlaveWalletPercent) public onlyOwner {
-    require(!slaveWalletPercentInitialized);
-    slaveWalletPercent = newSlaveWalletPercent;
-    slaveWalletPercentInitialized = true;
-  }
-
-  function setMasterWallet(address newMasterWallet) public onlyOwner {
-    masterWallet = newMasterWallet;
-  }
-
-  function setSlaveWallet(address newSlaveWallet) public onlyOwner {
-    require(!slaveWalletInitialized);
-    slaveWallet = newSlaveWallet;
-    slaveWalletInitialized = true;
-  }
-  
   function setToken(address newToken) public onlyOwner {
-    token = UBCoinToken(newToken);
+    token = MintableToken(newToken);
   }
 
-  function directMint(address to, uint investedWei) public onlyDirectMintAgentOrOwner saleIsOn {
-    mintTokens(to, investedWei);
+  function calculateTokens(uint _invested) internal returns(uint);
+
+  function mintTokensExternal(address to, uint tokens) public onlyDirectMintAgentOrOwner {
+    mintTokens(to, tokens);
   }
 
-  function createTokens() public whenNotPaused payable {
-    require(msg.value >= minPrice);
-    uint masterValue = msg.value.mul(percentRate.sub(slaveWalletPercent)).div(percentRate);
-    uint slaveValue = msg.value.sub(masterValue);
-    masterWallet.transfer(masterValue);
-    slaveWallet.transfer(slaveValue);
-    mintTokens(msg.sender, msg.value);
-  }
-
-  function mintTokens(address to, uint weiInvested) internal {
-    uint stageIndex = currentStage();
-    Stage storage stage = stages[stageIndex];
-    uint tokens = weiInvested.mul(stage.price);
+  function mintTokens(address to, uint tokens) internal {
     token.mint(this, tokens);
     token.transfer(to, tokens);
-    totalTokensMinted = totalTokensMinted.add(tokens);
-    totalInvested = totalInvested.add(weiInvested);
-    stage.invested = stage.invested.add(weiInvested);
-    if(stage.invested >= stage.hardcap) {
-      stage.closed = now;
-    }
   }
 
-  function() external payable {
-    createTokens();
-  }
-  
-  function retrieveTokens(address anotherToken, address to) public onlyOwner {
-    ERC20 alienToken = ERC20(anotherToken);
-    alienToken.transfer(to, alienToken.balanceOf(this));
+  function endSaleDate() public view returns(uint);
+
+  function mintTokensByETHExternal(address to, uint _invested) public onlyDirectMintAgentOrOwner returns(uint) {
+    return mintTokensByETH(to, _invested);
   }
 
+  function mintTokensByETH(address to, uint _invested) internal isUnderHardcap returns(uint) {
+    invested = invested.add(_invested);
+    uint tokens = calculateTokens(_invested);
+    mintTokens(to, tokens);
+    return tokens;
+  }
+
+  function fallback() internal minInvestLimited(msg.value) returns(uint) {
+    require(now >= start && now < endSaleDate());
+    wallet.transfer(msg.value);
+    return mintTokensByETH(msg.sender, msg.value);
+  }
+
+  function () public payable {
+    fallback();
+  }
 
 }
 

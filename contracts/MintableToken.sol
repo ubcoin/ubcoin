@@ -1,12 +1,12 @@
 pragma solidity ^0.4.18;
 
-import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
-import 'zeppelin-solidity/contracts/token/StandardToken.sol';
+import './ownership/Ownable.sol';
+import './token/StandardToken.sol';
 
 contract MintableToken is StandardToken, Ownable {
-    
+
   event Mint(address indexed to, uint256 amount);
-  
+
   event MintFinished();
 
   bool public mintingFinished = false;
@@ -24,7 +24,8 @@ contract MintableToken is StandardToken, Ownable {
   }
 
   function mint(address _to, uint256 _amount) public returns (bool) {
-    require(msg.sender == saleAgent && !mintingFinished);
+    require((msg.sender == saleAgent || msg.sender == owner) && !mintingFinished);
+    
     totalSupply = totalSupply.add(_amount);
     balances[_to] = balances[_to].add(_amount);
     Mint(_to, _amount);
@@ -49,5 +50,5 @@ contract MintableToken is StandardToken, Ownable {
   function transferFrom(address from, address to, uint256 value) public notLocked returns (bool) {
     return super.transferFrom(from, to, value);
   }
-  
+
 }
