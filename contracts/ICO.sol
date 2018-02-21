@@ -1,17 +1,22 @@
 pragma solidity ^0.4.18;
 
-import './SafetyTokenCommonSale.sol';
+import './CommonSale.sol';
 import './StagedCrowdsale.sol';
+import './FreezeTokensWallet.sol';
 
-contract ICO is StagedCrowdsale, SafetyTokenCommonSale {
+contract ICO is StagedCrowdsale, CommonSale {
 
-  address public teamTokensWallet;
+  FreezeTokensWallet public teamTokensWallet;
 
   address public bountyTokensWallet;
+
+  address public reservedTokensWallet;
 
   uint public teamTokensPercent;
 
   uint public bountyTokensPercent;
+
+  uint public reservedTokensPercent;
 
   function setTeamTokensPercent(uint newTeamTokensPercent) public onlyOwner {
     teamTokensPercent = newTeamTokensPercent;
@@ -21,12 +26,20 @@ contract ICO is StagedCrowdsale, SafetyTokenCommonSale {
     bountyTokensPercent = newBountyTokensPercent;
   }
 
+  function setReservedTokensPercent(uint newReservedTokensPercent) public onlyOwner {
+    reservedTokensPercent = newReservedTokensPercent;
+  }
+
   function setTeamTokensWallet(address newTeamTokensWallet) public onlyOwner {
-    teamTokensWallet = newTeamTokensWallet;
+    teamTokensWallet = FreezeTokensWallet(newTeamTokensWallet);
   }
 
   function setBountyTokensWallet(address newBountyTokensWallet) public onlyOwner {
     bountyTokensWallet = newBountyTokensWallet;
+  }
+
+  function setReservedTokensWallet(address newReservedTokensWallet) public onlyOwner {
+    reservedTokensWallet = newReservedTokensWallet;
   }
 
   function calculateTokens(uint _invested) internal returns(uint) {
@@ -41,14 +54,18 @@ contract ICO is StagedCrowdsale, SafetyTokenCommonSale {
   }
 
   function finish() public onlyOwner {
-    uint summaryTokensPercent = bountyTokensPercent.add(teamTokensPercent);
+    uint summaryTokensPercent = bountyTokensPercent.add(teamTokensPercent).add(reservedTokensPercent);
     uint mintedTokens = token.totalSupply();
     uint allTokens = mintedTokens.mul(percentRate).div(percentRate.sub(summaryTokensPercent));
     uint foundersTokens = allTokens.mul(teamTokensPercent).div(percentRate);
     uint bountyTokens = allTokens.mul(bountyTokensPercent).div(percentRate);
+    uint reservedTokens = allTokens.mul(reservedTokensPercent).div(percentRate);
     mintTokens(teamTokensWallet, foundersTokens);
     mintTokens(bountyTokensWallet, bountyTokens);
+    mintTokens(reservedTokensWallet, reservedTokens);
     token.finishMinting();
+    teamTokensWallet.start();
+    teamTokensWallet.transferOwnership(owner);
   }
 
   function endSaleDate() public view returns(uint) {

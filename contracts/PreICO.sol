@@ -1,11 +1,10 @@
 pragma solidity ^0.4.18;
 
-import './SafetyTokenCommonSale.sol';
+import './CommonSale.sol';
 import './NextSaleAgentFeature.sol';
 import './ICO.sol';
-import './SoftcapFeature.sol';
 
-contract PreICO is NextSaleAgentFeature, SoftcapFeature, SafetyTokenCommonSale {
+contract PreICO is NextSaleAgentFeature, CommonSale {
 
   uint public period;
 
@@ -13,23 +12,12 @@ contract PreICO is NextSaleAgentFeature, SoftcapFeature, SafetyTokenCommonSale {
     return _invested.mul(price).div(1 ether);
   }
 
-  function mintTokensByETH(address to, uint _invested) internal returns(uint) {
-    uint _tokens = super.mintTokensByETH(to, _invested);
-    updateBalance(to, _invested);
-    return _tokens;
-  }
-
   function setPeriod(uint newPeriod) public onlyOwner {
     period = newPeriod;
   }
 
   function finish() public onlyOwner {
-    if (updateRefundState()) {
-      token.finishMinting();
-    } else {
-      withdraw();
-      token.setSaleAgent(nextSaleAgent);
-    }
+    token.setSaleAgent(nextSaleAgent);
   }
 
   function endSaleDate() public view returns(uint) {

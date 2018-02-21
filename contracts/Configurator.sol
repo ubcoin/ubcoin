@@ -2,10 +2,10 @@ pragma solidity ^0.4.18;
 
 import './ownership/Ownable.sol';
 import './MintableToken.sol';
-import './SafetyToken.sol';
+import './UBCoinToken.sol';
 import './PreICO.sol';
 import './ICO.sol';
-import './DoubleStageFreezeTokensWallet.sol';
+import './FreezeTokensWallet.sol';
 
 contract Configurator is Ownable {
 
@@ -15,54 +15,45 @@ contract Configurator is Ownable {
 
   ICO public ico;
 
-  DoubleStageFreezeTokensWallet public teamTokensWallet;
+  FreezeTokensWallet public teamTokensWallet;
 
   function deploy() public onlyOwner {
 
-    token = new SafetyToken();
+    token = new UBCoinToken();
 
     preICO = new PreICO();
 
     preICO.setWallet(0xa86780383E35De330918D8e4195D671140A60A74);
     preICO.setStart(1518393600);
-    preICO.setPeriod(7);
-    preICO.setPrice(6667000000000000000000);
-    preICO.setSoftcap(1000000000000000000000);
+    preICO.setPeriod(15);
+    preICO.setPrice(33334000000000000000000);
     preICO.setMinInvestedLimit(100000000000000000);
     preICO.setToken(token);
-    preICO.setHardcap(11250000000000000000000);
+    preICO.setHardcap(8500000000000000000000);
     token.setSaleAgent(preICO);
 
     ico = new ICO();
 
-    ico.addMilestone(6, 10);
-    ico.addMilestone(6, 9);
-    ico.addMilestone(6, 8);
-    ico.addMilestone(6, 7);
-    ico.addMilestone(6, 6);
-    ico.addMilestone(6, 5);
-    ico.addMilestone(6, 4);
-    ico.addMilestone(6, 3);
-    ico.addMilestone(6, 2);
-    ico.addMilestone(3, 1);
-    ico.addMilestone(3, 0);
+    ico.addMilestone(20, 40);
+    ico.addMilestone(20, 20);
+    ico.addMilestone(20, 0);
     ico.setMinInvestedLimit(100000000000000000);
     ico.setToken(token);
-    ico.setPrice(5000000000000000000000);
+    ico.setPrice(14286000000000000000000);
     ico.setWallet(0x98882D176234AEb736bbBDB173a8D24794A3b085);
     ico.setBountyTokensWallet(0x28732f6dc12606D529a020b9ac04C9d6f881D3c5);
+    ico.setReservedTokensWallet(0x28732f6dc12606D529a020b9ac04C9d6f881D3c5);
     ico.setStart(1520640000);
-    ico.setHardcap(47500000000000000000000);
-    ico.setTeamTokensPercent(10);
-    ico.setBountyTokensPercent(5);
+    ico.setHardcap(96000000000000000000000);
+    ico.setTeamTokensPercent(12);
+    ico.setBountyTokensPercent(7);
+    ico.setReservedTokensPercent(31);
 
-    teamTokensWallet = new DoubleStageFreezeTokensWallet();
-    teamTokensWallet.setMasterPercent(30);
-    teamTokensWallet.setWallet(0x2AB0d2630eb67033E7D35eC1C43303a3F7720dA5);
-    teamTokensWallet.setToken(token);
-    teamTokensWallet.setFirstDate(1543622400);
-    teamTokensWallet.setSecondDate(1567296000);
-    teamTokensWallet.activate();
+    teamTokensWallet = new FreezeTokensWallet();
+    teamTokensWallet.setStartLockPeriod(24);
+    teamTokensWallet.setPeriod(48);
+    teamTokensWallet.setDuration(3);
+    teamTokensWallet.transferOwnership(ico);
 
     ico.setTeamTokensWallet(teamTokensWallet);
 
@@ -70,7 +61,6 @@ contract Configurator is Ownable {
 
     address manager = 0x675eDE27cafc8Bd07bFCDa6fEF6ac25031c74766;
 
-    teamTokensWallet.transferOwnership(manager);
     token.transferOwnership(manager);
     preICO.transferOwnership(manager);
     ico.transferOwnership(manager);
