@@ -53,6 +53,7 @@ contract Configurator is Ownable {
     teamTokensWallet.setStartLockPeriod(24);
     teamTokensWallet.setPeriod(48);
     teamTokensWallet.setDuration(3);
+    teamTokensWallet.setToken(token);
     teamTokensWallet.transferOwnership(ico);
 
     ico.setTeamTokensWallet(teamTokensWallet);
