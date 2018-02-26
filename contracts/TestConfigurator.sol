@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 
 import './ownership/Ownable.sol';
 
-contract SafetyToken {
+contract UBCoinToken {
   function setSaleAgent(address newSaleAgent) public;
   function transferOwnership(address newOwner) public;
 }
@@ -13,7 +13,6 @@ contract PreICO {
   function setPeriod(uint newPerion) public;
   function setPrice(uint newPrice) public;
   function setMinInvestedLimit(uint newMinInvestedLimit) public;
-  function setSoftcap(uint newSoftcap) public;
   function setHardcap(uint newHardcap) public;
   function setNextSaleAgent(address newICO) public;
   function setToken(address newToken) public;
@@ -22,98 +21,88 @@ contract PreICO {
 
 contract ICO {
   function addMilestone(uint period, uint bonus) public;
-  function setWallet(address newWallet) public;
   function setStart(uint newStart) public;
   function setPrice(uint newPrice) public;
   function setMinInvestedLimit(uint newMinInvestedLimit) public;
   function setHardcap(uint newHardcap) public;
+  function setWallet(address newWallet) public;
   function setTeamTokensWallet(address newTeamTokensWallet) public;
+  function setBountyTokensWallet (address newBountyWallet) public;
+  function setReservedTokensWallet (address newReservedTokensWallet) public;
   function setTeamTokensPercent(uint newTeamTokensPercent) public;
   function setBountyTokensPercent(uint newBountyTokensPercent) public;
-  function setBountyTokensWallet (address newBountyWallet) public;
+  function setReservedTokensPercent(uint newReservedTokensPercent) public;
   function setToken(address newToken) public;
   function transferOwnership(address newOwner) public;
 }
 
-contract DoubleStageFreezeTokensWallet {
-  function setWallet(address newWallet) public;
-  function setMasterPercent(uint newPercent) public;
-  function setFirstDate(uint newFirstDate) public;
-  function setSecondDate(uint newSecondDate) public;
-  function activate() public;
+contract FreezeTokensWallet {
+  function setStartLockPeriod(uint newStartLockPeriod) public;
+  function setPeriod(uint newPeriod) public;
+  function setDuration(uint newDuration) public;
   function setToken(address newToken) public;
   function transferOwnership(address newOwner) public;
 }
 
 contract TestConfigurator is Ownable {
-
-  SafetyToken public token;
+  UBCoinToken public token;
   PreICO public preICO;
   ICO public ico;
-  DoubleStageFreezeTokensWallet public bountyWallet;
-    function setToken(address _token) public onlyOwner {
-      token = SafetyToken(_token);
-    }
+  FreezeTokensWallet public teamTokensWallet;
 
-    function setPreICO(address _preICO) public onlyOwner {
-      preICO = PreICO(_preICO);
-    }
+  function setToken(address _token) public onlyOwner {
+    token = UBCoinToken(_token);
+  }
 
-    function setICO(address _ico) public onlyOwner {
-      ico = ICO(_ico);
-    }
+  function setPreICO(address _preICO) public onlyOwner {
+    preICO = PreICO(_preICO);
+  }
 
-	function setBountyWallet(address _bountyWallet) public onlyOwner {
-	  bountyWallet = DoubleStageFreezeTokensWallet(_bountyWallet);
+  function setICO(address _ico) public onlyOwner {
+    ico = ICO(_ico);
+  }
+
+	function setTeamTokensWallet(address _teamTokensWallet) public onlyOwner {
+	  teamTokensWallet = FreezeTokensWallet(_teamTokensWallet);
 	}
 
-    function deploy() public onlyOwner {
-      preICO.setWallet(0xa86780383E35De330918D8e4195D671140A60A74);
-      preICO.setStart(1518393600);
-      preICO.setPeriod(7);
-      preICO.setPrice(6667000000000000000000);
-      preICO.setMinInvestedLimit(100000000000000000);
-      preICO.setSoftcap(1000000000000000000000);
-      preICO.setHardcap(11250000000000000000000);
-      preICO.setToken(token);
+  function deploy() public onlyOwner {
+    preICO.setWallet(0xa86780383E35De330918D8e4195D671140A60A74);
+    preICO.setStart(1518393600);
+    preICO.setPeriod(15);
+    preICO.setPrice(33334000000000000000000);
+    preICO.setMinInvestedLimit(100000000000000000);
+    preICO.setHardcap(8500000000000000000000);
+    preICO.setToken(token);
 
-      token.setSaleAgent(preICO);
-      preICO.setNextSaleAgent(ico);
+    token.setSaleAgent(preICO);
+    preICO.setNextSaleAgent(ico);
 
-      ico.setWallet(0x98882D176234AEb736bbBDB173a8D24794A3b085);
-      ico.setStart(1520640000);
-      ico.addMilestone(6, 10);
-      ico.addMilestone(6, 9);
-      ico.addMilestone(6, 8);
-      ico.addMilestone(6, 7);
-      ico.addMilestone(6, 6);
-      ico.addMilestone(6, 5);
-      ico.addMilestone(6, 4);
-      ico.addMilestone(6, 3);
-      ico.addMilestone(6, 2);
-      ico.addMilestone(3, 1);
-      ico.addMilestone(3, 0);
-      ico.setPrice(5000000000000000000000);
-      ico.setMinInvestedLimit(100000000000000000);
-      ico.setHardcap(47500000000000000000000);
-      ico.setTeamTokensWallet(0x2AB0d2630eb67033E7D35eC1C43303a3F7720dA5);
-      ico.setTeamTokensPercent(12);
-      ico.setBountyTokensPercent(4);
-      ico.setToken(token);
+    ico.setStart(1520640000);
+    ico.addMilestone(20, 40);
+    ico.addMilestone(20, 20);
+    ico.addMilestone(20, 0);
+    ico.setPrice(14286000000000000000000);
+    ico.setMinInvestedLimit(100000000000000000);
+    ico.setHardcap(96000000000000000000000);
+    ico.setWallet(0x98882D176234AEb736bbBDB173a8D24794A3b085);
+    ico.setBountyTokensWallet(0x28732f6dc12606D529a020b9ac04C9d6f881D3c5);
+    ico.setReservedTokensWallet(0x28732f6dc12606D529a020b9ac04C9d6f881D3c5);
+    ico.setTeamTokensPercent(12);
+    ico.setBountyTokensPercent(4);
+    ico.setReservedTokensPercent(34);
+    ico.setToken(token);
 
-      ico.setBountyTokensWallet(bountyWallet);
+    ico.setTeamTokensWallet(teamTokensWallet);
 
-      bountyWallet.setWallet(0x28732f6dc12606D529a020b9ac04C9d6f881D3c5);
-      bountyWallet.setMasterPercent(30);
-      bountyWallet.setFirstDate(1543622400);
-      bountyWallet.setSecondDate(1567296000);
-      bountyWallet.setToken(token);
+    teamTokensWallet.setStartLockPeriod(24);
+    teamTokensWallet.setPeriod(48);
+    teamTokensWallet.setDuration(3);
+    teamTokensWallet.setToken(token);
+    teamTokensWallet.transferOwnership(ico);
 
-      bountyWallet.activate();
-
-      token.transferOwnership(owner);
-      preICO.transferOwnership(owner);
-      ico.transferOwnership(owner);
-      bountyWallet.transferOwnership(owner);
-    }
+    token.transferOwnership(owner);
+    preICO.transferOwnership(owner);
+    ico.transferOwnership(owner);
+  }
 }
