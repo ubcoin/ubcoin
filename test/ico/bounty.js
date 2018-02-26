@@ -43,6 +43,7 @@ export default function (Token, Crowdsale, Teamwallet, wallets) {
     await teamwallet.setStartLockPeriod(24);
     await teamwallet.setPeriod(48);
     await teamwallet.setDuration(3);
+    await teamwallet.setToken(token.address);
     await teamwallet.transferOwnership(crowdsale.address);
   });
 

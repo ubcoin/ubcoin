@@ -35,7 +35,7 @@ contract('ICO - bounty test', function (accounts) {
 
 contract('ICO - additional features test', function (accounts) {
   before(config);
-  additional(token, crowdsale, accounts);
+  additional(token, crowdsale, teamwallet, accounts);
 });
 
 function config() {
