@@ -11,9 +11,10 @@ const should = require('chai')
   .use(require('chai-bignumber')(web3.BigNumber))
   .should();
 
-export default function (Token, Crowdsale, wallets) {
+export default function (Token, Crowdsale, Teamwallet, wallets) {
   let token;
   let crowdsale;
+  let teamwallet;
 
   before(async function () {
     // Advance to the next block to correctly read time in the solidity "now" function interpreted by testrpc
@@ -23,14 +24,27 @@ export default function (Token, Crowdsale, wallets) {
   beforeEach(async function () {
     token = await Token.new();
     crowdsale = await Crowdsale.new();
+    teamwallet = await Teamwallet.new();
     await token.setSaleAgent(crowdsale.address);
     await crowdsale.setToken(token.address);
     await crowdsale.setStart(this.start);
-    await crowdsale.setPeriod(this.period);
     await crowdsale.setPrice(this.price);
     await crowdsale.setHardcap(this.hardcap);
     await crowdsale.setMinInvestedLimit(this.minInvestedLimit);
+    await crowdsale.addMilestone(20, 40);
+    await crowdsale.addMilestone(20, 20);
+    await crowdsale.addMilestone(20, 0);
     await crowdsale.setWallet(this.wallet);
+    await crowdsale.setBountyTokensWallet(this.BountyTokensWallet);
+    await crowdsale.setReservedTokensWallet(this.ReservedTokensWallet);
+    await crowdsale.setTeamTokensPercent(this.TeamTokensPercent);
+    await crowdsale.setBountyTokensPercent(this.BountyTokensPercent);
+    await crowdsale.setReservedTokensPercent(this.ReservedTokensPercent);
+    await crowdsale.setTeamTokensWallet(teamwallet.address);
+    await teamwallet.setStartLockPeriod(24);
+    await teamwallet.setPeriod(48);
+    await teamwallet.setDuration(3);
+    await teamwallet.transferOwnership(crowdsale.address);
   });
 
   it('crowdsale should be a saleAgent for token', async function () {
@@ -64,7 +78,7 @@ export default function (Token, Crowdsale, wallets) {
   it('should assign tokens to sender', async function () {
     await crowdsale.sendTransaction({value: ether(1), from: wallets[3]});
     const balance = await token.balanceOf(wallets[3]);
-    balance.should.be.bignumber.equal(this.price);
+    balance.should.be.bignumber.equal(this.price.times(1.4));
   });
 
   it('should reject payments after end', async function () {

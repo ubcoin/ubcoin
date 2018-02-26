@@ -10,17 +10,17 @@ import additional from './preico/additional';
 const token = artifacts.require('UBCoinToken.sol');
 const crowdsale = artifacts.require('PreICO.sol');
 
-contract('ITO - common test', function (accounts) {
+contract('PreICO - common test', function (accounts) {
   before(config);
   common(token, crowdsale, accounts);
 });
 
-contract('ITO - capped crowdsale test', function (accounts) {
+contract('PreICO - capped crowdsale test', function (accounts) {
   before(config);
   capped(token, crowdsale, accounts);
 });
 
-contract('ITO - additional features test', function (accounts) {
+contract('PreICO - additional features test', function (accounts) {
   before(config);
   additional(token, crowdsale, accounts);
 });

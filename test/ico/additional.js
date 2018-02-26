@@ -25,26 +25,33 @@ export default function (Token, Crowdsale, wallets) {
     await token.setSaleAgent(crowdsale.address);
     await crowdsale.setToken(token.address);
     await crowdsale.setStart(latestTime());
-    await crowdsale.setPeriod(this.period);
     await crowdsale.setPrice(this.price);
     await crowdsale.setHardcap(this.hardcap);
     await crowdsale.setMinInvestedLimit(this.minInvestedLimit);
+    await crowdsale.addMilestone(20, 40);
+    await crowdsale.addMilestone(20, 20);
+    await crowdsale.addMilestone(20, 0);
     await crowdsale.setWallet(this.wallet);
+    await crowdsale.setBountyTokensWallet(this.BountyTokensWallet);
+    await crowdsale.setReservedTokensWallet(this.ReservedTokensWallet);
+    await crowdsale.setTeamTokensPercent(this.TeamTokensPercent);
+    await crowdsale.setBountyTokensPercent(this.BountyTokensPercent);
+    await crowdsale.setReservedTokensPercent(this.ReservedTokensPercent);
   });
 
   it('should mintTokensByETHExternal by owner', async function () {
     const owner = await crowdsale.owner();
     await crowdsale.mintTokensByETHExternal(wallets[4], tokens(1), {from: owner}).should.be.fulfilled;
     const balance = await token.balanceOf(wallets[4]);
-    balance.should.bignumber.equal(this.price);
+    balance.should.bignumber.equal(this.price.times(1.4));
   });
 
-  it('should mintTokensByETHExternal by  Direct Mint Agend', async function () {
+  it('should mintTokensByETHExternal by Direct Mint Agend', async function () {
     const owner = await crowdsale.owner();
     await crowdsale.setDirectMintAgent(wallets[2], {from: owner});
     await crowdsale.mintTokensByETHExternal(wallets[5], tokens(1), {from: wallets[2]}).should.be.fulfilled;
     const balance = await token.balanceOf(wallets[5]);
-    balance.should.bignumber.equal(this.price);
+    balance.should.bignumber.equal(this.price.times(1.4));
   });
 
   it('should mintTokensExternal by owner', async function () {
@@ -60,5 +67,11 @@ export default function (Token, Crowdsale, wallets) {
     await crowdsale.mintTokensExternal(wallets[6], 100, {from: wallets[3]}).should.be.fulfilled;
     const balance = await token.balanceOf(wallets[6]);
     balance.should.bignumber.equal(100);
+  });
+
+  it('should start Team Tokens Wallet after finish', async function () {
+
+// need to verify this
+
   });
 }
