@@ -21,10 +21,13 @@
   "scripts": {
     "compile": " rm -rf ./build && ./node_modules/.bin/truffle compile",
     "test": "./scripts/test.sh",
-    "flatten": "npm run flatten-ico && npm run flatten-token && npm run flatten-preico",
+    "flatten-test": "npm run flatten-ico && npm run flatten-preico && npm run flatten-token && npm run flatten-teamwallet && npm run flatten-callback && npm run flatten-configurator",
     "flatten-ico": "./node_modules/.bin/truffle-flattener ./contracts/ICO.sol > ./deploy/ICO.sol",
     "flatten-preico": "./node_modules/.bin/truffle-flattener ./contracts/PreICO.sol > ./deploy/PreICO.sol",
-    "flatten-token": "./node_modules/.bin/truffle-flattener ./contracts/UBCoinToken.sol > ./deploy/UBCoinToken.sol"
+    "flatten-token": "./node_modules/.bin/truffle-flattener ./contracts/UBCoinToken.sol > ./deploy/UBCoinToken.sol",
+    "flatten-teamwallet": "./node_modules/.bin/truffle-flattener ./contracts/FreezeTokensWallet.sol > ./deploy/FreezeTokensWallet.sol",
+    "flatten-callback": "./node_modules/.bin/truffle-flattener ./contracts/CallbackTest.sol > ./deploy/CallbackTest.sol",
+    "flatten-configurator": "./node_modules/.bin/truffle-flattener ./contracts/TestConfigurator.sol > ./deploy/TestConfigurator.sol"
   },
   "repository": {
     "type": "git",
