@@ -23,10 +23,4 @@ contract PreICO is NextSaleAgentFeature, CommonSale {
   function endSaleDate() public view returns(uint) {
     return start.add(period * 1 days);
   }
-
-  function fallback() internal minInvestLimited(msg.value) returns(uint) {
-    require(now >= start && now < endSaleDate());
-    return mintTokensByETH(msg.sender, msg.value);
-  }
-
 }
