@@ -125,17 +125,17 @@ contract('Configurator integration test', function (accounts) {
 
   it ('team tokens wallet start lock period should be as described in README', async function () {
     const startLockPeriod = await teamTokensWallet.startLockPeriod();
-    startLockPeriod.should.bignumber.equal(duration.weeks(24));
+    startLockPeriod.should.bignumber.equal(duration.days(180));
   });
 
   it ('team tokens wallet period should be as described in README', async function () {
     const period = await teamTokensWallet.period();
-    period.should.bignumber.equal(duration.weeks(48));
+    period.should.bignumber.equal(duration.days(360));
   });
 
   it ('team tokens wallet duration should be as described in README', async function () {
     const Duration = await teamTokensWallet.duration();
-    Duration.should.bignumber.equal(duration.weeks(3));
+    Duration.should.bignumber.equal(duration.days(90));
   });
 
 });
