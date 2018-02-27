@@ -50,9 +50,9 @@ contract Configurator is Ownable {
     ico.setReservedTokensPercent(34);
 
     teamTokensWallet = new FreezeTokensWallet();
-    teamTokensWallet.setStartLockPeriod(24);
-    teamTokensWallet.setPeriod(48);
-    teamTokensWallet.setDuration(3);
+    teamTokensWallet.setStartLockPeriod(180);
+    teamTokensWallet.setPeriod(360);
+    teamTokensWallet.setDuration(90);
     teamTokensWallet.setToken(token);
     teamTokensWallet.transferOwnership(ico);
 

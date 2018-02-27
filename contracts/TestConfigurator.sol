@@ -62,9 +62,9 @@ contract TestConfigurator is Ownable {
     ico = ICO(_ico);
   }
 
-	function setTeamTokensWallet(address _teamTokensWallet) public onlyOwner {
-	  teamTokensWallet = FreezeTokensWallet(_teamTokensWallet);
-	}
+  function setTeamTokensWallet(address _teamTokensWallet) public onlyOwner {
+    teamTokensWallet = FreezeTokensWallet(_teamTokensWallet);
+  }
 
   function deploy() public onlyOwner {
     preICO.setWallet(0xa86780383E35De330918D8e4195D671140A60A74);
@@ -95,9 +95,9 @@ contract TestConfigurator is Ownable {
 
     ico.setTeamTokensWallet(teamTokensWallet);
 
-    teamTokensWallet.setStartLockPeriod(24);
-    teamTokensWallet.setPeriod(48);
-    teamTokensWallet.setDuration(3);
+    teamTokensWallet.setStartLockPeriod(180);
+    teamTokensWallet.setPeriod(360);
+    teamTokensWallet.setDuration(90);
     teamTokensWallet.setToken(token);
     teamTokensWallet.transferOwnership(ico);
 
