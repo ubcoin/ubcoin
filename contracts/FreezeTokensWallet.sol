@@ -12,11 +12,11 @@ contract FreezeTokensWallet is Ownable {
 
   bool public started;
 
-  uint public startLockPeriod = 25 weeks;
+  uint public startLockPeriod = 180 days;
 
-  uint public period = 12 weeks;
+  uint public period = 360 days;
 
-  uint public duration = 3 weeks;
+  uint public duration = 90 days;
 
   uint public startUnlock;
 
@@ -30,17 +30,17 @@ contract FreezeTokensWallet is Ownable {
   }
 
   function setPeriod(uint newPeriod) public onlyOwner notStarted {
-    period = newPeriod * 1 weeks;
+    period = newPeriod * 1 days;
   }
 
   function setDuration(uint newDuration) public onlyOwner notStarted {
-    duration = newDuration * 1 weeks;
+    duration = newDuration * 1 days;
   }
 
   function setStartLockPeriod(uint newStartLockPeriod) public onlyOwner notStarted {
-    startLockPeriod = newStartLockPeriod * 1 weeks;
+    startLockPeriod = newStartLockPeriod * 1 days;
   }
-  
+
   function setToken(address newToken) public onlyOwner notStarted {
     token = MintableToken(newToken);
   }
@@ -59,7 +59,7 @@ contract FreezeTokensWallet is Ownable {
     } else {
       uint parts = period.div(duration);
       uint tokensByPart = startBalance.div(parts);
-      uint timeSinceStart = now.sub(startLockPeriod);
+      uint timeSinceStart = now.sub(startUnlock);
       uint pastParts = timeSinceStart.div(duration);
       uint tokensToRetrieveSinceStart = pastParts.mul(tokensByPart);
       uint tokensToRetrieve = tokensToRetrieveSinceStart.sub(retrievedTokens);
@@ -69,6 +69,4 @@ contract FreezeTokensWallet is Ownable {
       }
     }
   }
-
 }
-

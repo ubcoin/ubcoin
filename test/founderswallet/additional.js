@@ -20,9 +20,9 @@ export default function (Token, FoundersWallet, wallets) {
   });
 
   beforeEach(async function () {
-    this.startLockPeriod = 25;
-    this.Period = 12;
-    this.Duration = 3;
+    this.startLockPeriod = 180;
+    this.Period = 360;
+    this.Duration = 90;
 
     token = await Token.new();
     foundersWallet = await FoundersWallet.new();
@@ -58,27 +58,24 @@ export default function (Token, FoundersWallet, wallets) {
     await foundersWallet.retrieveTokens(wallets[3], {from: wallets[1]}).should.be.rejectedWith(EVMRevert);
   });
 
-  it('should retrieve tokens after period', async function () {
-    await token.mint(foundersWallet.address, tokens(1000), {from: wallets[1]});
-    await token.finishMinting({from: wallets[1]});
-    await foundersWallet.start({from: wallets[1]});
-    const startUnlock = await foundersWallet.startUnlock();
-    const Period = await foundersWallet.period();
-    await increaseTimeTo(startUnlock.add(Period));
-    await foundersWallet.retrieveTokens(wallets[3], {from: wallets[1]}).should.be.fulfilled;
-    const balance = await token.balanceOf(wallets[3]);
-    balance.should.bignumber.equal(tokens(1000));
-  });
-
   it('should retrieve tokens by parts', async function () {
     await token.mint(foundersWallet.address, tokens(1000), {from: wallets[1]});
     await token.finishMinting({from: wallets[1]});
     await foundersWallet.start({from: wallets[1]});
     const startUnlock = await foundersWallet.startUnlock();
-    const Period = await foundersWallet.period();
-    await increaseTimeTo(startUnlock);
+    await increaseTimeTo(startUnlock.add(duration.days(45)));
+    await foundersWallet.retrieveTokens(wallets[3], {from: wallets[1]}).should.be.fulfilled;
+    await increaseTimeTo(startUnlock.add(duration.days(90)));
+    await foundersWallet.retrieveTokens(wallets[3], {from: wallets[1]}).should.be.fulfilled;
+    await increaseTimeTo(startUnlock.add(duration.days(185)));
+    await foundersWallet.retrieveTokens(wallets[3], {from: wallets[1]}).should.be.fulfilled;
+    await increaseTimeTo(startUnlock.add(duration.days(280)));
+    await foundersWallet.retrieveTokens(wallets[3], {from: wallets[1]}).should.be.fulfilled;
+    await increaseTimeTo(startUnlock.add(duration.days(360)));
+    await foundersWallet.retrieveTokens(wallets[3], {from: wallets[1]}).should.be.fulfilled;
+    await increaseTimeTo(startUnlock.add(duration.days(365)));
     await foundersWallet.retrieveTokens(wallets[3], {from: wallets[1]}).should.be.fulfilled;
     const balance = await token.balanceOf(wallets[3]);
-    balance.should.bignumber.equal(tokens(250));
+    balance.should.bignumber.equal(tokens(1000));
   });
 }
