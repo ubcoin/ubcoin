@@ -32,6 +32,14 @@ export default function (Token, Crowdsale, wallets) {
     await crowdsale.setWallet(this.wallet);
   });
 
+  it('should accept payments from white list addresses only', async function () {
+    const owner = await crowdsale.owner();
+    await crowdsale.addToWhiteList(wallets[1], {from: owner});
+    await crowdsale.deleteFromWhiteList(wallets[2], {from: owner});
+    await crowdsale.sendTransaction({value: ether(1), from: wallets[1]}).should.be.fulfilled;
+    await crowdsale.sendTransaction({value: ether(1), from: wallets[2]}).should.be.rejectedWith(EVMRevert);
+  });
+
   it('should mintTokensByETHExternal by owner', async function () {
     const owner = await crowdsale.owner();
     await crowdsale.mintTokensByETHExternal(wallets[4], tokens(1), {from: owner}).should.be.fulfilled;
@@ -65,6 +73,8 @@ export default function (Token, Crowdsale, wallets) {
   it('should use wallet for investments', async function () {
     const investment = ether(1);
     const pre = web3.eth.getBalance(this.wallet);
+    const owner = await crowdsale.owner();
+    await crowdsale.addToWhiteList(wallets[1], {from: owner});
     await crowdsale.sendTransaction({value: investment, from: wallets[1]});
     const post = web3.eth.getBalance(this.wallet);
     post.minus(pre).should.bignumber.equal(investment);

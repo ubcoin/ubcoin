@@ -33,16 +33,24 @@ export default function (Token, Crowdsale, wallets) {
   });
 
   it('should accept payments within hardcap', async function () {
+    const owner = await crowdsale.owner();
+    await crowdsale.addToWhiteList(wallets[3], {from: owner});
+    await crowdsale.addToWhiteList(wallets[4], {from: owner});
     await crowdsale.sendTransaction({value: this.hardcap.minus(ether(0.01)), from: wallets[3]}).should.be.fulfilled;
     await crowdsale.sendTransaction({value: this.minInvestedLimit, from: wallets[4]}).should.be.fulfilled;
   });
 
   it('should reject payments below min investment limit', async function () {
     const value = this.minInvestedLimit.minus(ether(0.01));
+    const owner = await crowdsale.owner();
+    await crowdsale.addToWhiteList(wallets[5], {from: owner});
     await crowdsale.sendTransaction({value: value, from: wallets[5]}).should.be.rejectedWith(EVMRevert);
   });
 
   it('should reject payments outside hardcap', async function () {
+    const owner = await crowdsale.owner();
+    await crowdsale.addToWhiteList(wallets[5], {from: owner});
+    await crowdsale.addToWhiteList(wallets[6], {from: owner});
     await crowdsale.sendTransaction({value: this.hardcap, from: wallets[5]}).should.be.fulfilled;
     await crowdsale.sendTransaction({value: ether(1), from: wallets[6]}).should.be.rejectedWith(EVMRevert);
   });

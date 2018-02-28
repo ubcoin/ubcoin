@@ -51,17 +51,22 @@ export default function (Token, Crowdsale, wallets) {
 
   it('should accept payments after start', async function () {
     await increaseTimeTo(this.start + duration.seconds(2));
+    const owner = await crowdsale.owner();
+    await crowdsale.addToWhiteList(wallets[3], {from: owner});
     await crowdsale.sendTransaction({value: ether(1), from: wallets[3]}).should.be.fulfilled;
   });
 
   it('should reject payments after finish', async function () {
-    await crowdsale.sendTransaction({value: ether(1), from: wallets[3]}).should.be.fulfilled;
     const owner = await crowdsale.owner();
+    await crowdsale.addToWhiteList(wallets[3], {from: owner});
+    await crowdsale.sendTransaction({value: ether(1), from: wallets[3]}).should.be.fulfilled;
     await crowdsale.finish({from: owner}).should.be.fulfilled;
     await crowdsale.sendTransaction({value: ether(1), from: wallets[3]}).should.be.rejectedWith(EVMRevert);
   });
 
   it('should assign tokens to sender', async function () {
+    const owner = await crowdsale.owner();
+    await crowdsale.addToWhiteList(wallets[3], {from: owner});
     await crowdsale.sendTransaction({value: ether(1), from: wallets[3]});
     const balance = await token.balanceOf(wallets[3]);
     balance.should.be.bignumber.equal(this.price);
