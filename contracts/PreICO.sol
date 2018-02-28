@@ -1,10 +1,9 @@
 pragma solidity ^0.4.18;
 
-import './CommonSale.sol';
 import './NextSaleAgentFeature.sol';
-import './ICO.sol';
+import './WhiteListFeature.sol';
 
-contract PreICO is NextSaleAgentFeature, CommonSale {
+contract PreICO is NextSaleAgentFeature, WhiteListFeature {
 
   uint public period;
 
@@ -23,4 +22,12 @@ contract PreICO is NextSaleAgentFeature, CommonSale {
   function endSaleDate() public view returns(uint) {
     return start.add(period * 1 days);
   }
+  
+  function fallback() internal minInvestLimited(msg.value) returns(uint) {
+    require(now >= start && now < endSaleDate());
+    require(whiteList[msg.sender]);
+    wallet.transfer(msg.value);
+    return mintTokensByETH(msg.sender, msg.value);
+  }
+  
 }
