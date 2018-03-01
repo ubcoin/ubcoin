@@ -67,27 +67,27 @@ contract TestConfigurator is Ownable {
   }
 
   function deploy() public onlyOwner {
-    preICO.setWallet(0xa86780383E35De330918D8e4195D671140A60A74);
-    preICO.setStart(1518393600);
+    preICO.setWallet(0x8fD94be56237EA9D854B23B78615775121Dd1E82);
+    preICO.setStart(1519862400);
     preICO.setPeriod(15);
     preICO.setPrice(33334000000000000000000);
     preICO.setMinInvestedLimit(100000000000000000);
-    preICO.setHardcap(8500000000000000000000);
+    preICO.setHardcap(3000000000000000000);
     preICO.setToken(token);
 
     token.setSaleAgent(preICO);
     preICO.setNextSaleAgent(ico);
 
-    ico.setStart(1520640000);
+    ico.setStart(1519862400);
     ico.addMilestone(20, 40);
     ico.addMilestone(20, 20);
     ico.addMilestone(20, 0);
     ico.setPrice(14286000000000000000000);
     ico.setMinInvestedLimit(100000000000000000);
     ico.setHardcap(96000000000000000000000);
-    ico.setWallet(0x98882D176234AEb736bbBDB173a8D24794A3b085);
-    ico.setBountyTokensWallet(0x28732f6dc12606D529a020b9ac04C9d6f881D3c5);
-    ico.setReservedTokensWallet(0x28732f6dc12606D529a020b9ac04C9d6f881D3c5);
+    ico.setWallet(0x8fD94be56237EA9D854B23B78615775121Dd1E82);
+    ico.setBountyTokensWallet(0x470a2D1105EaE6aAe879623357F615Ab9cbf906E);
+    ico.setReservedTokensWallet(0x093A89bDb5CE905fecb6272ff3ac92f53350a79A);
     ico.setTeamTokensPercent(12);
     ico.setBountyTokensPercent(4);
     ico.setReservedTokensPercent(34);
