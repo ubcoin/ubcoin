@@ -56,10 +56,10 @@ Investor must not use other wallets, coinmarkets or stocks. Can lose money.
 ## Main network configuration
 
 * _Minimal insvested limit_     : 0.1 ETH
-* _Bounty tokens wallet_        : 
-* _Reserved tokens wallet_      :
+* _Bounty tokens wallet_        : 0xdAA156b6eA6b9737eA20c68Db4040B1182E487B6
+* _Reserved tokens wallet_      : 0xE1D1898660469797B22D348Ff67d54643d848295
 * _Team tokens lock period_     : 180 days lock, after every 90 days vesting 25%
-* _Contracts owner_             :
+* _Contracts owner_             : 0xF1f94bAD54C8827C3B53754ad7dAa0FF5DCD527d
 
 ### Links
 1. _Token_ -
@@ -74,7 +74,7 @@ Investor must not use other wallets, coinmarkets or stocks. Can lose money.
 * _Hardcap_                     : 8500 ETH
 * _Period_                      : 15 days
 * _Start_                       : 
-* _Wallet_                      : 
+* _Wallet_                      : 0x00EE9d057f66754C7D92550F77Aeb0A87AE34B01
 
 ##### Features
 Whitelist
@@ -82,7 +82,7 @@ Whitelist
 #### ICO
 * _Hardcap_                     : 96 000 ETH
 * _Start_                       : 
-* _Wallet_                      : 
+* _Wallet_                      : 0x5FB78D8B8f1161731BC80eF93CBcfccc5783356F
 * _Techincally base price_      : 1 ETH = 14 286 Tokens
  
 ##### Milestones
