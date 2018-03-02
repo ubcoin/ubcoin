@@ -23,7 +23,7 @@ contract Configurator is Ownable {
 
     preICO = new PreICO();
 
-    preICO.setWallet(0xa86780383E35De330918D8e4195D671140A60A74);
+    preICO.setWallet(0x00EE9d057f66754C7D92550F77Aeb0A87AE34B01);
     preICO.setStart(1518393600);
     preICO.setPeriod(15);
     preICO.setPrice(33334000000000000000000);
@@ -40,9 +40,9 @@ contract Configurator is Ownable {
     ico.setMinInvestedLimit(100000000000000000);
     ico.setToken(token);
     ico.setPrice(14286000000000000000000);
-    ico.setWallet(0x98882D176234AEb736bbBDB173a8D24794A3b085);
-    ico.setBountyTokensWallet(0x28732f6dc12606D529a020b9ac04C9d6f881D3c5);
-    ico.setReservedTokensWallet(0x28732f6dc12606D529a020b9ac04C9d6f881D3c5);
+    ico.setWallet(0x5FB78D8B8f1161731BC80eF93CBcfccc5783356F);
+    ico.setBountyTokensWallet(0xdAA156b6eA6b9737eA20c68Db4040B1182E487B6);
+    ico.setReservedTokensWallet(0xE1D1898660469797B22D348Ff67d54643d848295);
     ico.setStart(1520640000);
     ico.setHardcap(96000000000000000000000);
     ico.setTeamTokensPercent(12);
@@ -60,7 +60,7 @@ contract Configurator is Ownable {
 
     preICO.setNextSaleAgent(ico);
 
-    address manager = 0x675eDE27cafc8Bd07bFCDa6fEF6ac25031c74766;
+    address manager = 0xF1f94bAD54C8827C3B53754ad7dAa0FF5DCD527d;
 
     token.transferOwnership(manager);
     preICO.transferOwnership(manager);

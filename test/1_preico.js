@@ -32,7 +32,7 @@ function config() {
   this.price = tokens(33334);
   this.hardcap = ether(8500);
   this.minInvestedLimit = ether(0.1);
-  this.wallet = '0xa86780383E35De330918D8e4195D671140A60A74';
+  this.wallet = '0x00EE9d057f66754C7D92550F77Aeb0A87AE34B01';
 
   // variables for additional testing convinience
   this.end = this.start + duration.days(this.period);

@@ -21,9 +21,9 @@ function config() {
   this.price = tokens(14286);
   this.hardcap = ether(96000);
   this.minInvestedLimit = ether(0.1);
-  this.wallet = '0x98882D176234AEb736bbBDB173a8D24794A3b085';
-  this.BountyTokensWallet = '0x28732f6dc12606D529a020b9ac04C9d6f881D3c5';
-  this.ReservedTokensWallet = '0x28732f6dc12606D529a020b9ac04C9d6f881D3c5';
+  this.wallet = '0x5FB78D8B8f1161731BC80eF93CBcfccc5783356F';
+  this.BountyTokensWallet = '0xdAA156b6eA6b9737eA20c68Db4040B1182E487B6';
+  this.ReservedTokensWallet = '0xE1D1898660469797B22D348Ff67d54643d848295';
   this.TeamTokensPercent = 12;
   this.BountyTokensPercent = 4;
   this.ReservedTokensPercent = 34;
