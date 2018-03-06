@@ -72,7 +72,7 @@ Investor must not use other wallets, coinmarkets or stocks. Can lose money.
 #### PreICO
 * _Base price_                  : 1 ETH = 33 334 Tokens
 * _Hardcap_                     : 8500 ETH
-* _Period_                      : 15 days
+* _Period_                      : 22 days
 * _Start_                       : 10 Mar 2018 00:00:00 GMT
 * _Wallet_                      : 0x00EE9d057f66754C7D92550F77Aeb0A87AE34B01
 
