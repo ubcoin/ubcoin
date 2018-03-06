@@ -62,10 +62,10 @@ Investor must not use other wallets, coinmarkets or stocks. Can lose money.
 * _Contracts owner_             : 0xF1f94bAD54C8827C3B53754ad7dAa0FF5DCD527d
 
 ### Links
-1. _Token_ -
-2. _PreICO_ -
-3. _ICO_ -
-3. _TeamWallet_ -
+1. _Token_ - https://etherscan.io/token/0x2d3e7d4870a51b918919e7b851fe19983e4c38d5
+2. _PreICO_ - https://etherscan.io/address/0x9ae773191a0b152955be05abacc9925f0007aac6
+3. _ICO_ - https://etherscan.io/address/0xdb58279c60c7641dabb015665db32372d031e55f
+3. _TeamWallet_ - https://etherscan.io/address/0xe564e0a6a545671d29ad690398c9e94a398434b3
 
 ### Crowdsale stages
 
