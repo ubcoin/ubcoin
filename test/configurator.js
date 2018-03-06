@@ -76,7 +76,7 @@ contract('Configurator integration test', function (accounts) {
 
   it ('presale period should be as described in README', async function () {
     const period = await preico.period();
-    period.should.bignumber.equal(15);
+    period.should.bignumber.equal(22);
   });
 
   it ('preICO and ICO should have price as described in README', async function () {
