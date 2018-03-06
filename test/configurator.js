@@ -69,9 +69,9 @@ contract('Configurator integration test', function (accounts) {
 
   it('preICO and ICO should have start time as described in README', async function () {
     const preicoStart = await preico.start();
-    preicoStart.should.bignumber.equal((new Date('12 Feb 2018 00:00:00 GMT')).getTime() / 1000);
+    preicoStart.should.bignumber.equal((new Date('10 Mar 2018 00:00:00 GMT')).getTime() / 1000);
     const icoStart = await ico.start();
-    icoStart.should.bignumber.equal((new Date('10 Mar 2018 00:00:00 GMT')).getTime() / 1000);
+    icoStart.should.bignumber.equal((new Date('02 Apr 2018 00:00:00 GMT')).getTime() / 1000);
   });
 
   it ('presale period should be as described in README', async function () {

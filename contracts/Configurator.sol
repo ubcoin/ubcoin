@@ -24,7 +24,7 @@ contract Configurator is Ownable {
     preICO = new PreICO();
 
     preICO.setWallet(0x00EE9d057f66754C7D92550F77Aeb0A87AE34B01);
-    preICO.setStart(1518393600);
+    preICO.setStart(1520640000); // 10 Mar 2018 00:00:00 GMT
     preICO.setPeriod(15);
     preICO.setPrice(33334000000000000000000);
     preICO.setMinInvestedLimit(100000000000000000);
@@ -43,7 +43,7 @@ contract Configurator is Ownable {
     ico.setWallet(0x5FB78D8B8f1161731BC80eF93CBcfccc5783356F);
     ico.setBountyTokensWallet(0xdAA156b6eA6b9737eA20c68Db4040B1182E487B6);
     ico.setReservedTokensWallet(0xE1D1898660469797B22D348Ff67d54643d848295);
-    ico.setStart(1520640000);
+    ico.setStart(1522627200); // 02 Apr 2018 00:00:00 GMT
     ico.setHardcap(96000000000000000000000);
     ico.setTeamTokensPercent(12);
     ico.setBountyTokensPercent(4);
