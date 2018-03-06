@@ -25,7 +25,7 @@ contract Configurator is Ownable {
 
     preICO.setWallet(0x00EE9d057f66754C7D92550F77Aeb0A87AE34B01);
     preICO.setStart(1520640000); // 10 Mar 2018 00:00:00 GMT
-    preICO.setPeriod(15);
+    preICO.setPeriod(22);
     preICO.setPrice(33334000000000000000000);
     preICO.setMinInvestedLimit(100000000000000000);
     preICO.setToken(token);
