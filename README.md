@@ -55,7 +55,6 @@ Investor must not use other wallets, coinmarkets or stocks. Can lose money.
 
 ## Main network configuration
 
-* _Minimal insvested limit_     : 0.1 ETH
 * _Bounty tokens wallet_        : 0xdAA156b6eA6b9737eA20c68Db4040B1182E487B6
 * _Reserved tokens wallet_      : 0xE1D1898660469797B22D348Ff67d54643d848295
 * _Team tokens lock period_     : 180 days lock, after every 90 days vesting 25%
@@ -70,8 +69,9 @@ Investor must not use other wallets, coinmarkets or stocks. Can lose money.
 ### Crowdsale stages
 
 #### PreICO
-* _Base price_                  : 1 ETH = 33 334 Tokens
-* _Hardcap_                     : 8500 ETH
+* _Minimal insvested limit_     : 50 ETH
+* _Base price_                  : 1 ETH = 18 667 Tokens
+* _Hardcap_                     : 21 500 ETH
 * _Period_                      : 22 days
 * _Start_                       : 10 Mar 2018 00:00:00 GMT
 * _Wallet_                      : 0x00EE9d057f66754C7D92550F77Aeb0A87AE34B01
@@ -80,15 +80,16 @@ Investor must not use other wallets, coinmarkets or stocks. Can lose money.
 Whitelist
 
 #### ICO
-* _Hardcap_                     : 96 000 ETH
+* _Minimal insvested limit_     : 0.1 ETH
+* _Techincally base price_      : 1 ETH = 8000 Tokens
+* _Hardcap_                     : 157 500 ETH
 * _Start_                       : 02 Apr 2018 00:00:00 GMT
 * _Wallet_                      : 0x5FB78D8B8f1161731BC80eF93CBcfccc5783356F
-* _Techincally base price_      : 1 ETH = 14 286 Tokens
  
 ##### Milestones
-1. 20 days, 1 ETH = 20 000 Tokens (Technically +40%)
-2. 20 days, 1 ETH = 17 143 Tokens (Technically +20%)
-3. 20 days, 1 ETH = 14 286 Tokens 
+1. 20 days, 1 ETH = 11 200 Tokens (Technically +40%)
+2. 20 days, 1 ETH =  9 600 Tokens (Technically +20%)
+3. 20 days, 1 ETH =  8 000 Tokens 
 
 ## Ropsten network configuration 
 
