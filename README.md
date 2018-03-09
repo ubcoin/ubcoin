@@ -88,7 +88,7 @@ Whitelist
  
 ##### Milestones
 1. 20 days, 1 ETH = 11 200 Tokens (Technically +40%)
-2. 20 days, 1 ETH =  9 360 Tokens (Technically +17%)
+2. 20 days, 1 ETH =  9 280 Tokens (Technically +16%)
 3. 20 days, 1 ETH =  8 000 Tokens 
 
 ## Ropsten network configuration 
