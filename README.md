@@ -76,22 +76,30 @@ Investor must not use other wallets, coinmarkets or stocks. Can lose money.
 * _Start_                       : 10 Mar 2018 00:00:00 GMT
 * _Wallet_                      : 0x00EE9d057f66754C7D92550F77Aeb0A87AE34B01
 
-##### Features
-Whitelist
-
 #### ICO
 * _Minimal insvested limit_     : 0.1 ETH
 * _Techincally base price_      : 1 ETH = 8000 Tokens
 * _Hardcap_                     : 157 500 ETH
 * _Start_                       : 02 Apr 2018 00:00:00 GMT
-* _Wallet_                      : 0x5FB78D8B8f1161731BC80eF93CBcfccc5783356F
- 
+* _Wallet_                      : 0x5FB78D8B8f1161731BC80eF93CBcfccc5783356F 
+
 ##### Milestones
 1. 20 days, 1 ETH = 11 200 Tokens (Technically +40%)
-2. 20 days, 1 ETH =  9 280 Tokens (Technically +16%)
-3. 20 days, 1 ETH =  8 000 Tokens 
+2. 20 days, 1 ETH = 10 000 Tokens (Technically +25%)
+2. 20 days, 1 ETH =  9 600 Tokens (Technically +20%)
+2. 20 days, 1 ETH =  9 200 Tokens (Technically +15%)
+2. 20 days, 1 ETH =  8 640 Tokens (Technically +8%)
+3.  4 days, 1 ETH =  8 000 Tokens 
 
-## Ropsten network configuration 
+##### Value bonus (not active yet)
+* 20 eth - 50%
+* 50 eth - 65%
+* 300 eth - 80%
+
+##### Features
+Value bonuses can be changed or disabled
+
+## Ropsten network configuration 1
 
 ### links
 1. _Token_ - https://ropsten.etherscan.io/address/0xac29edd683847c4d208008d1ad2797f79feac963
