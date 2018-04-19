@@ -93,6 +93,13 @@ contract ValueBonusFeature is PercentRateProvider {
     valueBonuses[numberAfter + 1] = ValueBonus(from, bonus);
   }
 
+  function clearValueBonuses() public onlyOwner {
+    require(valueBonuses.length > 0);
+    for (uint i = 0; i < valueBonuses.length; i++) {
+      delete valueBonuses[i];
+    }
+    valueBonuses.length = 0;
+  }
 
 }
 
