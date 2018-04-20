@@ -34,7 +34,7 @@ export default function (Token, Crowdsale, wallets) {
 
   it('should mintTokensByETHExternal by owner', async function () {
     const owner = await crowdsale.owner();
-    await crowdsale.mintTokensByETHExternal(wallets[4], tokens(1), {from: owner}).should.be.fulfilled;
+    await crowdsale.mintTokensByETHExternal(wallets[4], ether(1), {from: owner}).should.be.fulfilled;
     const balance = await token.balanceOf(wallets[4]);
     balance.should.bignumber.equal(this.price);
   });
@@ -42,24 +42,24 @@ export default function (Token, Crowdsale, wallets) {
   it('should mintTokensByETHExternal by  Direct Mint Agend', async function () {
     const owner = await crowdsale.owner();
     await crowdsale.setDirectMintAgent(wallets[2], {from: owner});
-    await crowdsale.mintTokensByETHExternal(wallets[5], tokens(1), {from: wallets[2]}).should.be.fulfilled;
+    await crowdsale.mintTokensByETHExternal(wallets[5], ether(1), {from: wallets[2]}).should.be.fulfilled;
     const balance = await token.balanceOf(wallets[5]);
     balance.should.bignumber.equal(this.price);
   });
 
   it('should mintTokensExternal by owner', async function () {
     const owner = await crowdsale.owner();
-    await crowdsale.mintTokensExternal(wallets[4], 100, {from: owner}).should.be.fulfilled;
+    await crowdsale.mintTokensExternal(wallets[4], tokens(100), {from: owner}).should.be.fulfilled;
     const balance = await token.balanceOf(wallets[4]);
-    balance.should.bignumber.equal(100);
+    balance.should.bignumber.equal(tokens(100));
   });
 
    it('should mintTokensExternal by Direct Mint Agent', async function () {
     const owner = await crowdsale.owner();
     await crowdsale.setDirectMintAgent(wallets[3], {from: owner});
-    await crowdsale.mintTokensExternal(wallets[6], 100, {from: wallets[3]}).should.be.fulfilled;
+    await crowdsale.mintTokensExternal(wallets[6], tokens(100), {from: wallets[3]}).should.be.fulfilled;
     const balance = await token.balanceOf(wallets[6]);
-    balance.should.bignumber.equal(100);
+    balance.should.bignumber.equal(tokens(100));
   });
 
   it('should use wallet for investments', async function () {
