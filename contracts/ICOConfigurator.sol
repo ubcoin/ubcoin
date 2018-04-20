@@ -4,6 +4,7 @@ import './ownership/Ownable.sol';
 import './MintableToken.sol';
 import './ICO.sol';
 import './FreezeTokensWallet.sol';
+import './UBCoinToken.sol';
 
 contract ICOConfigurator is Ownable {
 
