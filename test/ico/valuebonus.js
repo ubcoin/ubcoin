@@ -12,13 +12,10 @@ require('chai')
 export default function (Token, Crowdsale, wallets) {
   let token;
   let crowdsale;
-  const milestones = [
-    {day: 19, bonus: 40},
-    {day: 20, bonus: 25},
-    {day: 20, bonus: 20},
-    {day: 20, bonus: 15},
-    {day: 20, bonus: 8},
-    {day: 4, bonus: 0}
+  const valuebonuses = [
+    {value: 20000000000000000000, bonus: 50},
+    {value: 50000000000000000000, bonus: 65},
+    {value: 300000000000000000000, bonus: 80}
   ];
 
   before(async function () {
@@ -35,11 +32,14 @@ export default function (Token, Crowdsale, wallets) {
     await crowdsale.setPrice(this.price);
     await crowdsale.setHardcap(this.hardcap);
     await crowdsale.setMinInvestedLimit(this.minInvestedLimit);
-    await crowdsale.addMilestone(20, 40);
-    await crowdsale.addMilestone(20, 25);
-    await crowdsale.addMilestone(20, 20);
-    await crowdsale.addMilestone(20, 15);
-    await crowdsale.addMilestone(20, 8);
+    await crowdsale.addValueBonus(20000000000000000000, 50);
+    await crowdsale.addValueBonus(50000000000000000000, 65);
+    await crowdsale.addValueBonus(300000000000000000000, 80);
+    await crowdsale.addMilestone(20, 0);
+    await crowdsale.addMilestone(20, 0);
+    await crowdsale.addMilestone(20, 0);
+    await crowdsale.addMilestone(20, 0);
+    await crowdsale.addMilestone(20, 0);
     await crowdsale.addMilestone(4, 0);
     await crowdsale.setWallet(this.wallet);
     await crowdsale.setBountyTokensWallet(this.BountyTokensWallet);
@@ -49,13 +49,12 @@ export default function (Token, Crowdsale, wallets) {
     await crowdsale.setReservedTokensPercent(this.ReservedTokensPercent);
   });
 
-  milestones.forEach((milestone, i) => {
-    it(`should add ${milestone.bonus}% bonus for milestone #${i}`, async function () {
-      await increaseTimeTo(latestTime() + duration.days(milestone.day));
-      await crowdsale.sendTransaction({value: ether(1), from: wallets[i]});
+  valuebonuses.forEach((valuebonus, i) => {
+    it(`should add ${valuebonus.bonus}% bonus for investment over ${valuebonus.value / 1000000000000000000} eth`, async function () {
+      await crowdsale.sendTransaction({value: valuebonus.value, from: wallets[i]});
       const balance = await token.balanceOf(wallets[i]);
-      const value = this.price.times(1 + milestone.bonus / 100);
-      balance.should.be.bignumber.equal(value);
+      const tokenamount = this.price.mul(valuebonus.value).div(ether(1)).times(1 + valuebonus.bonus / this.PercentRate);
+      balance.should.be.bignumber.equal(tokenamount);
     });
   });
 

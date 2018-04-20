@@ -16,7 +16,7 @@ contract('Callback test', function (accounts) {
 
 function config() {
   // variables list based on info from README
-  this.start = unixTime('01 Apr 2018 00:00:00 GMT');
+  this.start = unixTime('20 May 2018 00:00:00 GMT');
   this.period = 60;
   this.price = tokens(14286);
   this.hardcap = ether(96000);

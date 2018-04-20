@@ -6,6 +6,7 @@ import {duration} from './helpers/increaseTime';
 import capped from './ico/capped';
 import common from './ico/common';
 import milestonebonus from './ico/milestonebonus';
+import valuebonus from './ico/valuebonus';
 import bounty from './ico/bounty';
 import additional from './ico/additional';
 
@@ -28,6 +29,11 @@ contract('ICO - milestone bonus test', function (accounts) {
   milestonebonus(token, crowdsale, accounts);
 });
 
+contract('ICO - value bonus test', function (accounts) {
+  before(config);
+  valuebonus(token, crowdsale, accounts);
+});
+
 contract('ICO - bounty test', function (accounts) {
   before(config);
   bounty(token, crowdsale, teamwallet, accounts);
@@ -40,8 +46,8 @@ contract('ICO - additional features test', function (accounts) {
 
 function config() {
   // variables list based on info from README
-  this.start = unixTime('01 Apr 2018 00:00:00 GMT');
-  this.period = 60;
+  this.start = unixTime('20 May 2018 00:00:00 GMT');
+  this.period = 104;
   this.price = tokens(14286);
   this.hardcap = ether(96000);
   this.minInvestedLimit = ether(0.1);
@@ -51,6 +57,7 @@ function config() {
   this.TeamTokensPercent = 12;
   this.BountyTokensPercent = 4;
   this.ReservedTokensPercent = 34;
+  this.PercentRate = 100;
 
   // variables for additional testing convinience
   this.end = this.start + duration.days(this.period);
