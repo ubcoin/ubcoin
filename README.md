@@ -165,3 +165,63 @@ https://ropsten.etherscan.io/tx/0x243342124f04e822369752f759ab48662914e5089473da
 
 ##### Token holders
 https://ropsten.etherscan.io/token/0xac29edd683847c4d208008d1ad2797f79feac963#balances
+
+
+## Ropsten network configuration 2
+
+### links
+1. _Token_ - https://ropsten.etherscan.io/address/0x298af0b09ba3db8447cc6db85d0c954f9f981923
+2. _ICO_ - https://ropsten.etherscan.io/address/0xeb8def19fb098bced3fa133e3ef26f8c525cb036
+3. _TeamWallet_ - https://ropsten.etherscan.io/address/0x8916ab1114f07fa02bda627a838a0ed8e0b0a241
+
+### Crowdsale stages
+
+#### ICO
+
+* _Price_                       : 1 ETH = 14 286 Tokens
+* _Minimal investment limit_    : 0.1 ETH
+* _Hardcap_                     : 96 000 ETH
+* _Wallet_                      : 0x8fd94be56237ea9d854b23b78615775121dd1e82
+* _Start_                       : 23 Apr 2018 00:00:00 GMT
+* _Bounty tokens percent_       : 4%
+* _Team tokens percent_         : 12%
+* _Reserved tokens_             : 34%
+* _Bounty tokens wallet_        : 0x470a2D1105EaE6aAe879623357F615Ab9cbf906E
+* _Reserved tokens wallet_      : 0x093A89bDb5CE905fecb6272ff3ac92f53350a79A
+
+_Milestones_
+
+1. 20 days, 1 ETH = 11 200 Tokens (Technically +40%)
+2. 20 days, 1 ETH = 10 000 Tokens (Technically +25%)
+2. 20 days, 1 ETH =  9 600 Tokens (Technically +20%)
+2. 20 days, 1 ETH =  9 200 Tokens (Technically +15%)
+2. 20 days, 1 ETH =  8 640 Tokens (Technically +8%)
+3.  4 days, 1 ETH =  8 000 Tokens 
+
+##### Purchasers
+  
+* 1 ETH =>  20,000.4 tokens (40% bonus, milestone 1), gas = 118337
+https://ropsten.etherscan.io/tx/0xeb6e6f1c0439a9cd27d9dc55dcbee8d0be4adf93e080d5aaa2bfaaf5fcfb216c
+
+* 1 ETH =>  21,429 tokens (40% + 10% bonus), gas = 75049
+https://ropsten.etherscan.io/tx/0xd2b49e917a50e2e096c758d91598687cebabc378d7f9d6855223f884c37927e4
+
+* 1 ETH =>  19,286.1 tokens (25% + 10% bonus, milestone 2), gas = 76472
+https://ropsten.etherscan.io/tx/0x2c7947ac2c11ad14e4c4fc6ae7e87b26a831cedcc7da5baf5bdff2c25d6045dc
+
+* 0.1 ETH =>  1,785.75 tokens (25% bonus), gas = 75305
+https://ropsten.etherscan.io/tx/0xfb170275e2e90790d3908c4132ffeda34ac025495c2118d64cd9cda4d7d3a8fd
+
+##### Service operations
+
+* addValueBonus (from 1 eth => 10% bonus), gas = 84508
+https://ropsten.etherscan.io/tx/0x84651dcb9693e65752d91ead234e5603c7984137d1f10e3077994d0f014b2a64
+
+* setStart (1 Apr 2018 00:00:00 GMT), gas = 28220
+https://ropsten.etherscan.io/tx/0x83d01acaa5566be3de42a454f68a0347bab2a82cce726e3305bc9fdcc68f3da4
+
+* finish, gas = 247775
+https://ropsten.etherscan.io/tx/0xec29ba03ec00dbc9bb9e24bdb389f47dfc327c42dfc98c5efe15e1cb44326ee9
+
+##### Token holders
+https://ropsten.etherscan.io/token/0x298af0b09ba3db8447cc6db85d0c954f9f981923#balances
