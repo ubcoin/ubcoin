@@ -48,7 +48,6 @@ contract MigrationConfigurator is Ownable {
     ico.setTeamTokensPercent(12);
     ico.setBountyTokensPercent(4);
     ico.setReservedTokensPercent(34);
-    ico.addValueBonus()
 
     teamTokensWallet = new FreezeTokensWallet();
     teamTokensWallet.setStartLockPeriod(180);
