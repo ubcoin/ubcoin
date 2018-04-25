@@ -63,7 +63,7 @@ Investor must not use other wallets, coinmarkets or stocks. Can lose money.
 ### Links
 1. _Token_ - https://etherscan.io/token/0x2d3e7d4870a51b918919e7b851fe19983e4c38d5
 2. _PreICO_ - https://etherscan.io/address/0xce5dbd884305a5716460dCcFfA63888Fc9BFaa72
-3. _ICO_ - https://etherscan.io/address/0xdb58279c60c7641dabb015665db32372d031e55f
+3. _ICO_ - https://etherscan.io/address/0x8dd9034f7ccc805bdc4d593a01f6a2e2eb94a67a
 3. _TeamWallet_ - https://etherscan.io/address/0xe564e0a6a545671d29ad690398c9e94a398434b3
 
 ### Crowdsale stages
@@ -77,7 +77,7 @@ Investor must not use other wallets, coinmarkets or stocks. Can lose money.
 * _Wallet_                      : 0x00EE9d057f66754C7D92550F77Aeb0A87AE34B01
 
 #### ICO
-* _Minimal insvested limit_     : 0.1 ETH
+* _Minimal insvested limit_     : 0.01 ETH
 * _Techincally base price_      : 1 ETH = 8000 Tokens
 * _Hardcap_                     : 157 500 ETH
 * _Start_                       : 02 Apr 2018 00:00:00 GMT
